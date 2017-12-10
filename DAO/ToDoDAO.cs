@@ -25,7 +25,7 @@ namespace ToDoList.DAO
             List<ToDoItem> todoList = new List<ToDoItem>();
             using (NpgsqlConnection connection = new NpgsqlConnection (
                 _config.GetConnectionString("ToDoDB"))) {
-                    var result = connection.Query<ToDoItem>(
+                    var result = connection.Query(
                         "SELECT * FROM ToDoItem"
                     );
 
@@ -39,9 +39,14 @@ namespace ToDoList.DAO
 
         }
 
+        public int size() {
+            List<ToDoItem> list = listAll();
+            return list.Count;
+        }
+
         public void AddItem (string name){
 
-            const string sql = "INSERT INTO ToDoItem (Name, isComplete) VALUES (@Name, @isComplete)"
+            const string sql = "INSERT INTO ToDoItem (Name, isComplete) VALUES (@Name, @isComplete)";
             using (NpgsqlConnection connection = new NpgsqlConnection (
                 _config.GetConnectionString("ToDoDB"))) {
                     connection.Open();
@@ -53,6 +58,7 @@ namespace ToDoList.DAO
 
 
         }
+        
 
     }
 }

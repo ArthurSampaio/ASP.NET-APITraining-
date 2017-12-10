@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ToDoList.DAO;
 
 namespace ToDoList
 {
@@ -23,6 +24,7 @@ namespace ToDoList
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ToDoDAO>();
             services.AddMvc();
         }
 
@@ -33,6 +35,7 @@ namespace ToDoList
             {
                 app.UseDeveloperExceptionPage();
             }
+
 
             app.UseMvc();
         }
