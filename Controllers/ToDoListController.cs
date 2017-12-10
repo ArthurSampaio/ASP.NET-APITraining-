@@ -14,9 +14,9 @@ namespace ToDoList.DAO
         public ToDoListController(ToDoDAO Dao){
             dao = Dao; 
 
-            if (dao.size() == 0){
-                dao.AddItem("Atividade 1");
-            }
+            // if (dao.size() == 0){
+            //     dao.AddItem("Atividade 1");
+            // }
 
         }
 

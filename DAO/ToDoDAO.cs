@@ -15,6 +15,7 @@ namespace ToDoList.DAO
     public class ToDoDAO
     {
         private IConfiguration _config;
+        const string SQL = "Server=localhost;Database=ToDoDB;Port=5432;User Id=aspnet;Password=12345;Timeout=10;";
 
         public ToDoDAO(IConfiguration config){
             _config = config;
@@ -23,9 +24,10 @@ namespace ToDoList.DAO
         public List<ToDoItem> listAll() {
 
             List<ToDoItem> todoList = new List<ToDoItem>();
-            using (NpgsqlConnection connection = new NpgsqlConnection (
-                _config.GetConnectionString("ToDoDB"))) {
-                    var result = connection.Query(
+            using (NpgsqlConnection connection = new NpgsqlConnection (SQL)) {
+                    
+                    connection.Open();
+                    var result = connection.Query<ToDoItem>(
                         "SELECT * FROM ToDoItem"
                     );
 
@@ -47,8 +49,7 @@ namespace ToDoList.DAO
         public void AddItem (string name){
 
             const string sql = "INSERT INTO ToDoItem (Name, isComplete) VALUES (@Name, @isComplete)";
-            using (NpgsqlConnection connection = new NpgsqlConnection (
-                _config.GetConnectionString("ToDoDB"))) {
+              using (NpgsqlConnection connection = new NpgsqlConnection (SQL)) {
                     connection.Open();
  
                     var RowsAdded = connection.Execute(sql, new {Name = name, isComplete = false});

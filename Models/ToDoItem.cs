@@ -1,6 +1,5 @@
 namespace ToDoList.Models
 {
-    
     public class ToDoItem
     {
         public long Id {get; set;}
